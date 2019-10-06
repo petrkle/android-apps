@@ -9,7 +9,7 @@ FDROID="https://f-droid.org/packages"
 
 echo "My favorite apps"
 
-for ID in `adb shell pm list packages -3 -f | sed "s/.*apk=//"`
+for ID in `adb shell pm list packages -3 -f | sed "s/.*apk=//" | shuf`
 do
 	if curl --silent --fail --head "$FDROID/$ID/" > /dev/null
 		then
@@ -26,4 +26,4 @@ do
 				| sed "s/ – Aplikace na Google Play.*//"`
 	fi
 echo "* [$NAME]($URL)"
-done | sort
+done | sort | uniq
